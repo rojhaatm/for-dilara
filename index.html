@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ku" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بۆ خۆشتڤیا من، دلارایێ ❤️</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        roseGold: '#E8B4B8',
+                        deepCrimson: '#6B0F1A',
+                        darkBurgundy: '#1A060B',
+                        romanticPink: '#FF758C',
+                        softGold: '#F3E5AB',
+                    },
+                    fontFamily: {
+                        arabic: ['"Noto Naskh Arabic"', 'serif'],
+                        cursive: ['"Caveat"', 'cursive'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Noto Naskh Arabic', 'Plus Jakarta Sans', sans-serif;
+            background-color: #0d0205;
+            color: #fce4e8;
+            overflow-x: hidden;
+            overflow-x: clip;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            overflow-wrap: break-word;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        button {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        button:focus-visible, .flip-card:focus-visible {
+            outline: 2px solid #f3e5ab;
+            outline-offset: 4px;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-card {
+            background: rgba(35, 10, 18, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 117, 140, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-pill {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* Glow Effects */
+        .glow-text {
+            text-shadow: 0 0 15px rgba(255, 117, 140, 0.6), 0 0 30px rgba(255, 117, 140, 0.3);
+        }
+
+        .glow-gold {
+            text-shadow: 0 0 15px rgba(243, 229, 171, 0.6), 0 0 25px rgba(243, 229, 171, 0.3);
+        }
+
+        .glow-box {
+            box-shadow: 0 0 25px rgba(255, 117, 140, 0.35);
+        }
+
+        /* 3D Flip Card Effect */
+        .flip-card {
+            perspective: 1000px;
+            min-width: 0;
+            touch-action: manipulation;
+        }
+        .flip-card-inner {
+            height: 100%;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0205;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6b0f1a;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff758c;
+        }
+
+        /* Heart Pulse Keyframes */
+        @keyframes pulseGlow {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(255, 117, 140, 0.4);
+            }
+            50% {
+                transform: scale(1.08);
+                box-shadow: 0 0 40px rgba(255, 117, 140, 0.8);
+            }
+        }
+        .pulse-heart {
+            animation: pulseGlow 2.5s infinite ease-in-out;
+        }
+
+        /* Floating particles overlay canvas */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Sparkle float */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(0.8) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-120px) scale(1.3) rotate(20deg);
+                opacity: 0;
+            }
+        }
+        .floating-heart-particle {
+            position: fixed;
+            pointer-events: none;
+            animation: floatUp 2s ease-out forwards;
+        }
+
+        @media (max-width: 480px) {
+            .glass-card {
+                border-radius: 1.25rem;
+            }
+
+            #heroSection {
+                min-height: 100vh;
+                min-height: 100svh;
+                padding-inline: 1rem;
+            }
+
+            #heroSection > div:first-child {
+                width: 100%;
+                padding-top: 5.5rem;
+            }
+
+            #heroSection h1 {
+                font-size: clamp(1.8rem, 8vw, 2.5rem);
+                line-height: 1.45;
+                overflow-wrap: normal;
+            }
+
+            #heroSection p,
+            #letterSection p,
+            main section p {
+                overflow-wrap: break-word;
+            }
+
+            main {
+                width: 100%;
+                padding-inline: 1rem;
+            }
+
+            #letterSection > .glass-card,
+            main > section.glass-card {
+                padding: 1rem;
+            }
+
+            #typedLetterText {
+                font-size: clamp(1rem, 4.2vw, 1.125rem);
+                line-height: 2;
+            }
+
+            .flip-card-front,
+            .flip-card-back {
+                padding: 1rem;
+            }
+
+            .flip-card {
+                height: clamp(13rem, 56vw, 14rem);
+            }
+
+            #audioToggleBtn {
+                min-height: 44px;
+                max-width: calc(100vw - 2rem);
+                padding: 0.625rem 0.875rem;
+                font-size: clamp(0.6875rem, 3vw, 0.8125rem);
+                line-height: 1.4;
+            }
+
+            #audioToggleBtn span {
+                white-space: normal;
+            }
+
+            #sendEmailHeart {
+                width: clamp(7rem, 34vw, 8rem);
+                height: clamp(7rem, 34vw, 8rem);
+                min-width: 44px;
+                min-height: 44px;
+            }
+
+            #sendEmailHeart span {
+                font-size: clamp(0.625rem, 2.8vw, 0.6875rem);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body class="selection:bg-pink-500 selection:text-white" dir="rtl">
+
+    <!-- Particle Canvas Layer -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Floating Audio Control Widget -->
+    <div class="fixed top-4 left-4 z-50" style="top: max(1rem, env(safe-area-inset-top)); left: max(1rem, env(safe-area-inset-left));">
+        <button id="audioToggleBtn" type="button" aria-label="Toggle background music" onclick="toggleAudio()" class="glass-pill min-h-11 px-4 py-2.5 rounded-full flex items-center gap-2 text-xs md:text-sm text-pink-200 hover:text-white hover:bg-pink-900/40 transition-all duration-300 shadow-lg border border-pink-500/30">
+            <i id="audioIcon" class="fas fa-music text-pink-400"></i>
+            <span id="audioStatus">لێدانا موزیکێ (LOVE)</span>
+        </button>
+    </div>
+
+    <!-- Hidden HTML5 Audio Element for Ed Sheeran - Perfect -->
+    <audio id="bgMusic" loop preload="metadata" src="ABD.mp3"></audio>
+
+    <!-- MAIN CONTAINER -->
+    <div class="relative z-20 min-h-screen flex flex-col justify-between">
+
+        <!-- HERO / COVER SECTION -->
+        <section id="heroSection" class="min-h-screen flex flex-col justify-center items-center text-center px-4 relative">
+            <div class="w-full max-w-3xl mx-auto space-y-6 sm:space-y-8 my-auto pt-16 sm:pt-12">
+                <!-- Top Badge -->
+                <div class="inline-block max-w-full glass-pill px-4 sm:px-6 py-2 rounded-full border border-pink-500/30 text-xs sm:text-sm md:text-base tracking-wide shadow-inner">
+                    ✨ دیاریەکا تایبەت ژ دلی ✨
+                </div>
+
+                <!-- Main Romantic Titles -->
+                <h1 class="text-3xl sm:text-4xl md:text-7xl font-bold tracking-tight text-white leading-tight">
+                    بۆ خۆشتڤیا من، <br>
+                    <span class="bg-gradient-to-r from-pink-400 via-rose-300 to-amber-200 bg-clip-text text-transparent glow-text font-serif">دلارایێ ❤️</span>
+                </h1>
+
+                <p class="text-base sm:text-lg md:text-2xl text-pink-100/80 font-light max-w-xl mx-auto leading-relaxed">
+                    ئەڤ مالپەرە هاتیە دروستکرن دا کو هەمی دەمان بیرئینانا هەمی وان تشتێن جوان بیت یێن مە پێکڤە هەیین.
+                </p>
+
+                <!-- Dedicated From Tag -->
+                <div class="pt-2">
+                    <span class="text-pink-300/70 text-sm md:text-base font-light">ژ لایێ: </span>
+                    <span class="text-amber-200 font-semibold text-lg md:text-xl glow-gold">روژهات</span>
+                </div>
+
+                <!-- Interactive Reveal Button -->
+                <div class="pt-8">
+                    <button type="button" onclick="scrollToLetter()" class="pulse-heart group relative inline-flex min-h-12 items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-medium text-white bg-gradient-to-r from-rose-600 to-pink-600 rounded-full overflow-hidden shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95">
+                        <span class="relative z-10 flex items-center gap-3">
+                            <i class="fas fa-envelope-open-text text-xl group-hover:rotate-12 transition-transform"></i>
+                            نامه‌یا من ڤه‌که‌
+                        </span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-pink-500 to-rose-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="pb-8 animate-bounce text-pink-400/60 text-sm flex flex-col items-center gap-1">
+                <span>وەرە خوارێ بو دیتنا زێدەترێ</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- MAIN CONTENT CONTAINER -->
+        <main class="w-full max-w-5xl mx-auto px-4 space-y-16 sm:space-y-20 lg:space-y-24 pb-16 sm:pb-20">
+
+            <!-- 1. LOVE LETTER SECTION -->
+            <section id="letterSection" class="pt-10">
+                <div class="glass-card rounded-3xl p-4 sm:p-6 md:p-12 relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-pink-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-rose-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <div class="text-center mb-8">
+                        <i class="fas fa-quote-right text-3xl md:text-4xl text-pink-400/50 mb-3"></i>
+                        <h2 class="text-2xl md:text-4xl font-bold text-white">نامه‌یا روژهاتی بۆ دلارایێ</h2>
+                        <div class="h-1 w-20 bg-gradient-to-r from-pink-500 to-amber-300 mx-auto rounded-full mt-3"></div>
+                    </div>
+
+                    <!-- Typing Display Container -->
+                    <div class="bg-black/30 rounded-2xl p-4 sm:p-6 md:p-8 border border-pink-500/20 shadow-inner min-h-[220px] flex flex-col justify-between">
+                        <p id="typedLetterText" class="text-base md:text-xl text-pink-50 leading-loose font-normal min-h-[140px]"></p>
+                        
+                        <div class="mt-6 pt-4 border-t border-pink-500/20 flex flex-wrap justify-between items-center text-xs md:text-sm text-pink-300/80">
+                            <span>❤️ بۆ هه‌تا هه‌تایێ</span>
+                            <span class="font-serif italic text-amber-200">گەلەک حەژتەدکەم</span>
+                        </div>
+                    </div>
+
+                    <!-- Re-play typing animation button -->
+                    <div class="mt-6 text-center">
+                        <button onclick="startTypingAnimation()" class="glass-pill px-5 py-2 rounded-full text-xs md:text-sm text-pink-200 hover:text-white hover:bg-pink-500/20 transition-all border border-pink-500/30">
+                            <i class="fas fa-redo-alt mr-1"></i> دیسان نامێ بخوینه‌ڤه‌
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. REASONS WHY I LOVE YOU (FLIP CARDS) -->
+            <section class="space-y-8">
+                <div class="text-center space-y-2">
+                    <h2 class="text-2xl md:text-4xl font-bold text-white">چه‌ند ئه‌گه‌رێن کو ئه‌ز گەلەک حەژتەدکەم</h2>
+                    <p class="text-pink-200/70 text-sm md:text-base">کلیک ل سەر کارتەکێ بکە دا پەڕەکێ نی ڤەبیت</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+
+                    <!-- Card 1 -->
+                    <div class="flip-card h-56 cursor-pointer" role="button" tabindex="0" aria-pressed="false" onclick="toggleFlip(this)">
+                        <div class="flip-card-inner relative w-full h-full rounded-2xl transition-all duration-500">
+                            <div class="flip-card-front absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center text-center border border-pink-500/30 hover:border-pink-400 transition-colors">
+                                <div class="w-14 h-14 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-300 text-2xl mb-3">
+                                    <i class="fas fa-smile-beam"></i>
+                                </div>
+                                <h3 class="text-lg font-bold text-white">که‌نیا ته‌ یا جوان</h3>
+                                <p class="text-xs text-pink-300/60 mt-2">کلیک بکه‌ بۆ دیتنا نامێ</p>
+                            </div>
+                            <div class="flip-card-back absolute inset-0 bg-gradient-to-br from-rose-950 via-pink-900 to-darkBurgundy rounded-2xl p-6 flex items-center justify-center text-center border border-amber-300/40">
+                                <p class="text-sm md:text-base text-pink-100 leading-relaxed">
+                                    "دەمێ تو د کەنی، هه‌می جیهانا من ڕۆهن دبیت. کەنیا تە ئارامیێ ددەتە دڵێ من."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="flip-card h-56 cursor-pointer" role="button" tabindex="0" aria-pressed="false" onclick="toggleFlip(this)">
+                        <div class="flip-card-inner relative w-full h-full rounded-2xl transition-all duration-500">
+                            <div class="flip-card-front absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center text-center border border-pink-500/30 hover:border-pink-400 transition-colors">
+                                <div class="w-14 h-14 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-300 text-2xl mb-3">
+                                    <i class="fas fa-heart-pulse"></i>
+                                </div>
+                                <h3 class="text-lg font-bold text-white">دڵێ تە یێ میهرەبان</h3>
+                                <p class="text-xs text-pink-300/60 mt-2">کلیک بکه‌ بۆ دیتنا نامێ</p>
+                            </div>
+                            <div class="flip-card-back absolute inset-0 bg-gradient-to-br from-rose-950 via-pink-900 to-darkBurgundy rounded-2xl p-6 flex items-center justify-center text-center border border-amber-300/40">
+                                <p class="text-sm md:text-base text-pink-100 leading-relaxed">
+                                    "میهرەبانیا تە و پاکیا دڵێ تە تشتەکێ ئێکجار مەزنە بومن. تو باشترین کەسی د ژیانا من دا."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="flip-card h-56 cursor-pointer" role="button" tabindex="0" aria-pressed="false" onclick="toggleFlip(this)">
+                        <div class="flip-card-inner relative w-full h-full rounded-2xl transition-all duration-500">
+                            <div class="flip-card-front absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center text-center border border-pink-500/30 hover:border-pink-400 transition-colors">
+                                <div class="w-14 h-14 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-300 text-2xl mb-3">
+                                    <i class="fas fa-sun"></i>
+                                </div>
+                                <h3 class="text-lg font-bold text-white">ڕووناهیا ژیانا من</h3>
+                                <p class="text-xs text-pink-300/60 mt-2">کلیک بکه‌ بۆ دیتنا نامێ</p>
+                            </div>
+                            <div class="flip-card-back absolute inset-0 bg-gradient-to-br from-rose-950 via-pink-900 to-darkBurgundy rounded-2xl p-6 flex items-center justify-center text-center border border-amber-300/40">
+                                <p class="text-sm md:text-base text-pink-100 leading-relaxed">
+                                    "هەر دەمێ ئەز بەحسێ تە دکەم یان هزر د تە دا دکەم، رۆژا من زێدەتر گەش و جوان دبیت."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="flip-card h-56 cursor-pointer" role="button" tabindex="0" aria-pressed="false" onclick="toggleFlip(this)">
+                        <div class="flip-card-inner relative w-full h-full rounded-2xl transition-all duration-500">
+                            <div class="flip-card-front absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center text-center border border-pink-500/30 hover:border-pink-400 transition-colors">
+                                <div class="w-14 h-14 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-300 text-2xl mb-3">
+                                    <i class="fas fa-hands-holding-child"></i>
+                                </div>
+                                <h3 class="text-lg font-bold text-white">پشتەڤانیا تە</h3>
+                                <p class="text-xs text-pink-300/60 mt-2">کلیک بکه‌ بۆ دیتنا نامێ</p>
+                            </div>
+                            <div class="flip-card-back absolute inset-0 bg-gradient-to-br from-rose-950 via-pink-900 to-darkBurgundy rounded-2xl p-6 flex items-center justify-center text-center border border-amber-300/40">
+                                <p class="text-sm md:text-base text-pink-100 leading-relaxed">
+                                    "بوونا تە د ڕەخ من ڤە هێزێ و ئارامیێ ددەتە من د هەمی نەخۆشی و خۆشیان دا."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="flip-card h-56 cursor-pointer" role="button" tabindex="0" aria-pressed="false" onclick="toggleFlip(this)">
+                        <div class="flip-card-inner relative w-full h-full rounded-2xl transition-all duration-500">
+                            <div class="flip-card-front absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center text-center border border-pink-500/30 hover:border-pink-400 transition-colors">
+                                <div class="w-14 h-14 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-300 text-2xl mb-3">
+                                    <i class="fas fa-gem"></i>
+                                </div>
+                                <h3 class="text-lg font-bold text-white">تایبەتمەندیا تە</h3>
+                                <p class="text-xs text-pink-300/60 mt-2">کلیک بکه‌ بۆ دیتنا نامێ</p>
+                            </div>
+                            <div class="flip-card-back absolute inset-0 bg-gradient-to-br from-rose-950 via-pink-900 to-darkBurgundy rounded-2xl p-6 flex items-center justify-center text-center border border-amber-300/40">
+                                <p class="text-sm md:text-base text-pink-100 leading-relaxed">
+                                    "تشتەکێ ناڤوازە د تە دا هەیە کو چو کەسێن دی نینن. تو گەوھەرەکا گرانبهایی."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="flip-card h-56 cursor-pointer" role="button" tabindex="0" aria-pressed="false" onclick="toggleFlip(this)">
+                        <div class="flip-card-inner relative w-full h-full rounded-2xl transition-all duration-500">
+                            <div class="flip-card-front absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center text-center border border-pink-500/30 hover:border-pink-400 transition-colors">
+                                <div class="w-14 h-14 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-300 text-2xl mb-3">
+                                    <i class="fas fa-infinity"></i>
+                                </div>
+                                <h3 class="text-lg font-bold text-white">پاشەرۆژا مە</h3>
+                                <p class="text-xs text-pink-300/60 mt-2">کلیک بکه‌ بۆ دیتنا نامێ</p>
+                            </div>
+                            <div class="flip-card-back absolute inset-0 bg-gradient-to-br from-rose-950 via-pink-900 to-darkBurgundy rounded-2xl p-6 flex items-center justify-center text-center border border-amber-300/40">
+                                <p class="text-sm md:text-base text-pink-100 leading-relaxed">
+                                    "چوونا پێش دگەل تە د ڕێکا ژیانێ دا خۆشترین خەونا منە کو ئەز ب دەست خۆ ڤە بینم."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+ <!-- 3. INTERACTIVE LOVE MAP & LIVE TIMELINE -->
+<section class="glass-card rounded-3xl p-4 sm:p-6 md:p-10 text-center relative overflow-hidden border border-pink-500/30">
+    <div class="max-w-3xl mx-auto space-y-8">
+        
+        <!-- Header Title -->
+        <div>
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-500/20 border border-pink-400/40 text-pink-300 text-xs md:text-sm font-semibold mb-3">
+                <i class="fas fa-heart text-rose-400 animate-pulse"></i> گەشتا ئەڤینا دلارایێ و روژهاتی
+            </div>
+            <h2 class="text-2xl md:text-4xl font-extrabold text-white">ئامارێن ئەڤینا مە یا پیرۆز</h2>
+            <p class="text-xs md:text-sm text-pink-200/70 mt-1">دەمژمێرێن بیرهاتنێن مە ژ دەستپێکا ئەڤینێ تا ئەڤرۆ</p>
+        </div>
+
+        <!-- Live Romantic Time Counter -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            <div class="bg-black/40 backdrop-blur-md p-3 sm:p-4 rounded-2xl border border-pink-500/20 shadow-inner">
+                <div id="counterDays" class="text-[clamp(1.5rem,7vw,2.25rem)] md:text-4xl font-extrabold text-amber-300 glow-gold">0</div>
+                <div class="text-[10px] md:text-xs text-pink-200/80 uppercase font-medium mt-1">ڕۆژ</div>
+            </div>
+            <div class="bg-black/40 backdrop-blur-md p-3 sm:p-4 rounded-2xl border border-pink-500/20 shadow-inner">
+                <div id="counterHours" class="text-[clamp(1.5rem,7vw,2.25rem)] md:text-4xl font-extrabold text-pink-300">0</div>
+                <div class="text-[10px] md:text-xs text-pink-200/80 uppercase font-medium mt-1">دەمژمێر</div>
+            </div>
+            <div class="bg-black/40 backdrop-blur-md p-3 sm:p-4 rounded-2xl border border-pink-500/20 shadow-inner">
+                <div id="counterMinutes" class="text-[clamp(1.5rem,7vw,2.25rem)] md:text-4xl font-extrabold text-amber-200">0</div>
+                <div class="text-[10px] md:text-xs text-pink-200/80 uppercase font-medium mt-1">خولەک</div>
+            </div>
+            <div class="bg-black/40 backdrop-blur-md p-3 sm:p-4 rounded-2xl border border-pink-500/20 shadow-inner">
+                <div id="counterSeconds" class="text-[clamp(1.5rem,7vw,2.25rem)] md:text-4xl font-extrabold text-rose-400 animate-pulse">0</div>
+                <div class="text-[10px] md:text-xs text-pink-200/80 uppercase font-medium mt-1">چرکە</div>
+            </div>
+        </div>
+<!-- SPECIAL MISS YOU EMAIL HEART BUTTON -->
+<div class="pt-6 space-y-3 text-center">
+    <h3 class="text-lg font-bold text-white">دڵێ دلارا یێ خەریب بوی</h3>
+    <p class="text-xs text-pink-200/80">هەر دەمێ دلارا تو خەریب بوی، بتنێ دەست ل ڤی دڵێ لێدەر بدە!</p>
+    
+    <div class="relative w-40 h-40 mx-auto flex items-center justify-center my-4">
+        <!-- Glowing Animated Rings -->
+        <div class="absolute inset-0 rounded-full border-2 border-pink-500/30 animate-ping opacity-75"></div>
+        <div class="absolute inset-2 rounded-full border border-rose-400/40"></div>
+
+        <!-- Tap Heart Button -->
+        <button id="sendEmailHeart" type="button" aria-label="Send a miss-you email" onclick="sendMissYouEmail(event)" class="w-32 h-32 min-w-11 min-h-11 rounded-full bg-gradient-to-tr from-rose-600 via-pink-500 to-amber-300 flex flex-col items-center justify-center shadow-2xl transform active:scale-90 transition-transform duration-150 border-4 border-white/20 hover:shadow-pink-500/50">
+            <i class="fas fa-heart text-4xl text-white drop-shadow-md animate-pulse"></i>
+            <span class="text-[11px] font-bold text-white mt-1">دەست لێ بدە!</span>
+        </button>
+    </div>
+</div>
+
+        <!-- Dynamic Chemistry / Love Bar -->
+        <div class="bg-black/30 rounded-2xl p-4 border border-pink-500/20 space-y-2">
+            <div class="flex justify-between text-xs text-pink-200 font-semibold">
+                <span>ئاستێ ڕاستەقینە یێ ئەڤینا روژهاتی</span>
+                <span class="text-amber-300 font-bold">100% ♾️</span>
+            </div>
+            <div class="w-full h-3 bg-pink-950 rounded-full overflow-hidden p-0.5 border border-pink-500/30">
+                <div class="h-full bg-gradient-to-r from-rose-500 via-pink-400 to-amber-300 rounded-full animate-pulse shadow-glow"></div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+            <!-- 4. ROMANTIC MEMORY / QUOTES TIMELINE -->
+            <section class="space-y-8">
+                <div class="text-center space-y-2">
+                    <h2 class="text-2xl md:text-4xl font-bold text-white">پەیڤێن ژ دلی دەرکەفتی</h2>
+                    <p class="text-pink-200/70 text-sm md:text-base">بۆ خۆشتڤیترین کەس د ژیانا من دا</p>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Quote 1 -->
+                    <div class="glass-card rounded-2xl p-6 md:p-8 border-r-4 border-pink-500 flex flex-col md:flex-row items-center gap-6 hover:bg-pink-950/30 transition-all">
+                        <div class="text-4xl text-pink-400 shrink-0">
+                            <i class="fas fa-star text-amber-300"></i>
+                        </div>
+                        <div class="space-y-2 text-center md:text-right">
+                            <p class="text-lg md:text-xl text-pink-100 font-medium">"تو نە بەس تنێ کەسەکێ د ژیانا من دا، تو هەمی جیهانا منی."</p>
+
+                        </div>
+                    </div>
+
+                    <!-- Quote 2 -->
+                    <div class="glass-card rounded-2xl p-6 md:p-8 border-r-4 border-amber-400 flex flex-col md:flex-row items-center gap-6 hover:bg-pink-950/30 transition-all">
+                        <div class="text-4xl text-amber-300 shrink-0">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <div class="space-y-2 text-center md:text-right">
+                            <p class="text-lg md:text-xl text-pink-100 font-medium">"د ناڤ هەمی تشتێن جوان یێن ڤێ جیهانێ دا، تو جوانترین تشتی."</p>
+                            
+                        </div>
+                    </div>
+
+                    <!-- Quote 3 -->
+                    <div class="glass-card rounded-2xl p-6 md:p-8 border-r-4 border-rose-500 flex flex-col md:flex-row items-center gap-6 hover:bg-pink-950/30 transition-all">
+                        <div class="text-4xl text-rose-400 shrink-0">
+                            <i class="fas fa-feather-alt text-pink-400"></i>
+                        </div>
+                        <div class="space-y-2 text-center md:text-right">
+                            <p class="text-lg md:text-xl text-pink-100 font-medium">"سوپاس تۆ هاتیە د ژیانا من دا و تە ژیانا من پڕی ڕووناهی و کەیف کری."</p>
+                           
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="text-center py-8 border-t border-pink-500/20 glass-card">
+            <div class="max-w-md mx-auto space-y-2 px-4">
+                <p class="text-base font-semibold text-pink-200">
+                    ئەشقا هەر و هەر دلارا من❤️
+                </p>
+                <p class="text-xs text-pink-300/60">
+                    تایبەت بۆ <span class="text-amber-200 font-bold">دلارا</span> ژ لایێ <span class="text-amber-200 font-bold">روژهات</span>
+                </p>
+                <p class="text-[10px] text-pink-400/40 pt-2">
+                    &copy; بۆ هەتا هەتایێ پێکڤە
+                </p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- AUDIO SYNTH / MELODY LOGIC & INTERACTION SCRIPTS -->
+    <script>
+        /* ---------------------------------------------------
+         1. Interactive Floating Background Particle Physics Canvas
+        --------------------------------------------------- */
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = height + Math.random() * 100;
+                this.size = Math.random() * 14 + 6;
+                this.speedY = Math.random() * 1.2 + 0.4;
+                this.speedX = Math.sin(Math.random() * Math.PI * 2) * 0.6;
+                this.opacity = Math.random() * 0.6 + 0.2;
+                this.color = Math.random() > 0.3 ? '#ff758c' : '#f3e5ab';
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = (Math.random() - 0.5) * 1.5;
+            }
+
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                this.rotation += this.rotationSpeed;
+
+                if (this.y < -30) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+
+                // Draw glowing subtle heart shape
+                ctx.beginPath();
+                const topCurveHeight = this.size * 0.3;
+                ctx.moveTo(0, topCurveHeight);
+                ctx.bezierCurveTo(0, 0, -this.size / 2, 0, -this.size / 2, topCurveHeight);
+                ctx.bezierCurveTo(-this.size / 2, (this.size + topCurveHeight) / 2, 0, this.size, 0, this.size);
+                ctx.bezierCurveTo(0, this.size, this.size / 2, (this.size + topCurveHeight) / 2, this.size / 2, topCurveHeight);
+                ctx.bezierCurveTo(this.size / 2, 0, 0, 0, 0, topCurveHeight);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.restore();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = Math.min(Math.floor(window.innerWidth / 20), 40);
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+
+        /* ---------------------------------------------------
+         2. Kurdish Dynamic Love Letter Typing Effect
+        --------------------------------------------------- */
+        const letterText = "سلاڤ بۆ دلارا، هەمی ژیانا من... ❤️\n\nئەز ڤی مالپەرێ بچیک من بو تە دروست کری دا کو بزانی کا تو چەند یا گرنگی د ژیانا من دا. هەر رۆژەکا دگەل تە دەرباز دبیت، دیاریەکا ب بها یە بـۆ من. سوپاس بۆ هندێ کو تو یا هەیی، سوپاس بۆ هەمی کەنی و گرنژینێن تە یێن جوان. هیڤیدارم ئەڤ مالپەرە کەیفا تە بینیت و بزانی کو ڕۆژهات بۆ هەتا هەتایێ حەژتەدکەت!";
+
+        let typingIndex = 0;
+        let typingTimeout;
+
+        function startTypingAnimation() {
+            clearTimeout(typingTimeout);
+            const container = document.getElementById('typedLetterText');
+            container.innerHTML = '';
+            typingIndex = 0;
+
+            function typeNextChar() {
+                if (typingIndex < letterText.length) {
+                    const char = letterText.charAt(typingIndex);
+                    if (char === '\n') {
+                        container.innerHTML += '<br>';
+                    } else {
+                        container.innerHTML += char;
+                    }
+                    typingIndex++;
+                    typingTimeout = setTimeout(typeNextChar, 45);
+                }
+            }
+            typeNextChar();
+        }
+
+        function scrollToLetter() {
+            const letterSec = document.getElementById('letterSection');
+            letterSec.scrollIntoView({ behavior: 'smooth' });
+            startTypingAnimation();
+        }
+
+
+        /* ---------------------------------------------------
+         3. Flip Cards Interaction
+        --------------------------------------------------- */
+        function toggleFlip(cardElement) {
+            cardElement.classList.toggle('flipped');
+            cardElement.setAttribute('aria-pressed', cardElement.classList.contains('flipped'));
+            playSoftTone(523.25, 0.1); // Musical note response (C5)
+        }
+
+        document.addEventListener('keydown', event => {
+            const card = event.target instanceof Element
+                ? event.target.closest('.flip-card[role="button"]')
+                : null;
+            if (card && (event.key === 'Enter' || event.key === ' ')) {
+                event.preventDefault();
+                toggleFlip(card);
+            }
+        });
+
+
+        /* ---------------------------------------------------
+         4. Heart Burst Generator & Love Counter
+        --------------------------------------------------- */
+        let heartCount = 0;
+
+        function triggerHeartBurst(event) {
+            heartCount++;
+            document.getElementById('heartCounter').innerText = heartCount;
+
+            // Audio tone on click
+            const frequencies = [261.63, 329.63, 392.00, 523.25, 659.25];
+            const randomFreq = frequencies[Math.floor(Math.random() * frequencies.length)];
+            playSoftTone(randomFreq, 0.15);
+
+            // Create floating hearts around button
+            const btn = document.getElementById('burstBtn');
+            const rect = btn.getBoundingClientRect();
+
+            for (let i = 0; i < 6; i++) {
+                const heart = document.createElement('i');
+                heart.className = 'fas fa-heart floating-heart-particle text-rose-400 text-xl';
+                
+                const offsetX = (Math.random() - 0.5) * 120;
+                const offsetY = (Math.random() - 0.5) * 40;
+
+                heart.style.left = (rect.left + rect.width / 2 + offsetX) + 'px';
+                heart.style.top = (rect.top + rect.height / 2 + offsetY) + 'px';
+
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 1900);
+            }
+        }
+
+
+        /* ---------------------------------------------------
+         5. Background Song Player Logic (Ed Sheeran - Perfect)
+        --------------------------------------------------- */
+        const bgAudio = document.getElementById('bgMusic');
+        let isPlaying = false;
+
+        function toggleAudio() {
+            const statusText = document.getElementById('audioStatus');
+            const icon = document.getElementById('audioIcon');
+
+            if (!isPlaying) {
+                bgAudio.play().then(() => {
+                    isPlaying = true;
+                    statusText.innerText = 'EK-Dileen 🎵';
+                    icon.className = 'fas fa-compact-disc text-amber-300 animate-spin';
+                }).catch(error => {
+                    console.log('Audio playback prevented by browser:', error);
+                    statusText.innerText = 'دیسان کلیت بکە بۆ لێدانێ';
+                });
+            } else {
+                bgAudio.pause();
+                isPlaying = false;
+                statusText.innerText = 'لێدانا موزیکێ (LOVE)';
+                icon.className = 'fas fa-music text-pink-400';
+            }
+        }
+
+        // Initialize typing on scroll view observer
+        window.onload = function() {
+            startTypingAnimation();
+        };
+
+        // Function for Live Love Counter starting from August 15th
+function updateLoveCounter() {
+    // ڕێکخستنا ژڤانێ 15ی هەشتێ (August 15)
+    // نۆت: هەیڤا هەشت (August) د JavaScript دا دکەڤیتە ئیندیێکسێ 7
+    const currentYear = new Date().getFullYear();
+    let startDate = new Date(currentYear, 7, 15); 
+
+    // ئەگەر 15ی هەشتێ یا ئەڤ ساڵە نەهاتبیت، بۆ ساڵا بەرێ ڕێکبێخە
+    if (new Date() < startDate) {
+        startDate = new Date(currentYear - 1, 7, 15);
+    }
+
+    const now = new Date();
+    const diff = now - startDate;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / 1000 / 60) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    if (document.getElementById('counterDays')) {
+        document.getElementById('counterDays').innerText = days;
+        document.getElementById('counterHours').innerText = hours;
+        document.getElementById('counterMinutes').innerText = minutes;
+        document.getElementById('counterSeconds').innerText = seconds;
+    }
+}
+
+// Update counter every second
+setInterval(updateLoveCounter, 1000);
+updateLoveCounter();
+
+// Interactive Journey Modal Function
+function showJourneyModal(title, text) {
+    alert("❤️ " + title + "\n\n" + text);
+}
+
+function sendMissYouEmail(event) {
+    // Floating particles burst effect
+    for (let i = 0; i < 8; i++) {
+        const heart = document.createElement('i');
+        heart.className = 'fas fa-heart floating-heart-particle text-rose-400 text-xl';
+        heart.style.left = (event.clientX + (Math.random() - 0.5) * 80) + 'px';
+        heart.style.top = (event.clientY + (Math.random() - 0.5) * 40) + 'px';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 2500);
+    }
+
+    // Mailto link redirection
+    const email = "rojhatmuhammad@gmail.com";
+    const subject = encodeURIComponent("پەیاما ئەڤینێ ژ لایێ دلارایێ ❤️");
+    const body = encodeURIComponent("روژهات... دلارا یا ژتە خەریبە! ❤️✨");
+
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+}
+    </script>
+</body>
+</html>
